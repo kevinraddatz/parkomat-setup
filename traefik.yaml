@@ -1,0 +1,15 @@
+log:
+  level: DEBUG
+
+api:
+  dashboard: true
+
+providers:
+  file:
+    filename: /etc/traefik/rules.yaml
+
+entrypoints:
+  https:
+    address: ":443"
+  http:
+    address: ":80"

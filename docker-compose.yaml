@@ -1,0 +1,99 @@
+version: '3'
+services:
+
+  proxy:
+    image: traefik:latest
+    container_name: proxy
+    restart: always
+    env_file:
+      ./.traefik.env
+    labels:
+      - traefik.enable=true
+    ports:
+      - 443:443
+      - 80:80
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yaml:/etc/traefik/traefik.yaml
+      - ./rules.yaml:/etc/traefik/rules.yaml
+    networks:
+      - parkomat
+
+  database:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: database
+    restart: always
+    env_file:
+      - .database.env
+    volumes:
+      - {__PATH_TO_EXTERNAL_DIRECTORY__}:/var/lib/mysql
+    networks:
+      - parkomat
+
+  core:
+    image: parkomat-core:latest
+    container_name: core
+    restart: always
+    env_file:
+      - .parkomat.env
+      - .database.env
+      - .core.env
+    volumes:
+      - ./initial-sensor-mappings.json:/config/initial-sensor-mappings.json
+    networks:
+      - parkomat
+    depends_on:
+      - database
+
+  teams:
+    image: parkomat-teams:latest
+    container_name: teams
+    restart: always
+    env_file:
+      - .teams.env
+    networks:
+      - parkomat
+    depends_on:
+      - core
+
+  telegram:
+    image: parkomat-telegram:latest
+    container_name: telegram
+    restart: always
+    env_file:
+      - .database.env
+      - .telegram.env
+    networks:
+      - parkomat
+    depends_on:
+      - core
+
+  websocket:
+    image: parkomat-websocket:latest
+    container_name: websocket
+    restart: always
+    env_file:
+      - .websocket.env
+    networks:
+      - parkomat
+    depends_on:
+      - core
+
+  reservations:
+    image: parkomat-reservations:latest
+    container_name: reservations
+    restart: always
+    env_file:
+      - .database.env
+      - .parkomat.env
+      - .reservations.env
+    networks:
+      - parkomat
+    depends_on:
+      - core
+
+networks:
+  parkomat:
+    external: false

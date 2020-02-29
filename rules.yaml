@@ -1,0 +1,92 @@
+certificateresolvers:
+  dnschallenge:
+    # Receive free certificates from LetsEncrypt
+    acme:
+      # Use dnschallenge a authentication method
+      # See https://docs.traefik.io/https/acme/#the-different-acme-challenges for other challenges
+      dnschallenge:
+        # See https://docs.traefik.io/https/acme/#providers for providers and their configuration
+        provider: cloudflare
+      # LetsEncrypt will send an email if your certificate is about to expire
+      email:
+      # Traefik will store your certificate in this file
+      storage: acme.json
+
+http:
+  middlewares:
+    ##################################################################################
+    # Authentication
+    ##################################################################################
+    proxy-auth:
+      # Basic authentication for proxy dashboard
+      basicAuth:
+        # A list of users: https://docs.traefik.io/v2.0/middlewares/basicauth/
+        users:
+          - user:5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+
+    update-sensor-auth:
+      # Basic authentication for updating a sensor
+      basicAuth:
+        # A list of users: https://docs.traefik.io/v2.0/middlewares/basicauth/
+        users:
+          - user:5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+
+  ##################################################################################
+  # Services
+  ##################################################################################
+  services:
+    # Define the core service at `http://core:8080`
+    core:
+      loadBalancer:
+        servers:
+          - url: http://core:8080
+
+    # Define the reservation service at `http://core:8080`
+    reservations:
+      loadBalancer:
+        servers:
+          - url: http://reservations:8080
+
+  ##################################################################################
+  # Routers
+  ##################################################################################
+  routers:
+    # Proxy
+    proxy:
+      entryPoints:
+        - https
+      rule: Host(`parkomat.raddatz.me`)
+      service: api@internal
+      middlewares:
+        - proxy-auth
+      tls:
+        certresolver: dnschallenge
+
+    # Core, update sensor
+    core-update:
+      entryPoints:
+        - https
+      rule: Host(`core.parkomat.raddatz.me`) && Path(`/sensors/{id:.*}`)
+      service: core@file
+      middlewares:
+        - update-sensor-auth
+      tls:
+        certresolver: dnschallenge
+
+    # Core
+    core:
+      entryPoints:
+        - https
+      rule: Host(`core.parkomat.raddatz.me`)
+      service: core@file
+      tls:
+        certresolver: dnschallenge
+
+    # Reservations
+    reservations:
+      entryPoints:
+        - https
+      rule: Host(`reservations.parkomat.raddatz.me`)
+      service: reservations@file
+      tls:
+        certresolver: dnschallenge

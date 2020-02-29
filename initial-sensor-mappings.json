@@ -1,0 +1,127 @@
+[
+  {
+    "sensorId": "39DC5073",
+    "parkingSpotId": "1",
+    "type": "LIFT"
+  },
+  {
+    "sensorId": "39DC5173",
+    "parkingSpotId": "2",
+    "type": "LIFT"
+  },
+  {
+    "sensorId": "39DC5273",
+    "parkingSpotId": "3",
+    "type": "LIFT"
+  },
+  {
+    "sensorId": "39DC5373",
+    "parkingSpotId": "4",
+    "type": "LIFT"
+  },
+  {
+    "sensorId": "39DC5473",
+    "parkingSpotId": "5",
+    "type": "LIFT"
+  },
+  {
+    "sensorId": "39DC5573",
+    "parkingSpotId": "6",
+    "type": "LIFT"
+  },
+  {
+    "sensorId": "39DC5773",
+    "parkingSpotId": "12",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC5873",
+    "parkingSpotId": "13",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC5A73",
+    "parkingSpotId": "14",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC5B73",
+    "parkingSpotId": "15",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC5C73",
+    "parkingSpotId": "16",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC5D73",
+    "parkingSpotId": "17",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC5E73",
+    "parkingSpotId": "18",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC5F73",
+    "parkingSpotId": "19",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6073",
+    "parkingSpotId": "20",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6373",
+    "parkingSpotId": "21",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6473",
+    "parkingSpotId": "30",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6573",
+    "parkingSpotId": "31",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6673",
+    "parkingSpotId": "32",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6773",
+    "parkingSpotId": "33",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6873",
+    "parkingSpotId": "34",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6973",
+    "parkingSpotId": "35",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6A73",
+    "parkingSpotId": "36",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6B73",
+    "parkingSpotId": "37",
+    "type": "NORMAL"
+  },
+  {
+    "sensorId": "39DC6C73",
+    "parkingSpotId": "38",
+    "type": "NORMAL"
+  }
+]
